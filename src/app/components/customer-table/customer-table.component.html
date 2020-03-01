@@ -1,0 +1,101 @@
+<section>
+  <div>
+    <app-input
+      [(ngModel)]="searchTerm"
+      [placeholder]="placeholder"
+      ngDefaultControl
+    ></app-input>
+  </div>
+  <div class="table-row header">
+    <div class="wrapper text-4">
+      <div class="wrapper text-2">
+        <div class="text">
+          <div class=" arrow-wrapper">
+            <span class="arrow-text-spacer">Customer Number</span>
+            <a
+              href="#"
+              (click)="sortType('customer_number_up')"
+              *ngIf="showNumbers"
+            >
+              <div class="arrow-up"></div>
+            </a>
+
+            <a
+              href="#"
+              (click)="sortType('customer_number_down')"
+              *ngIf="!showNumbers"
+            >
+              <div class="arrow-down"></div>
+            </a>
+          </div>
+        </div>
+        <div class="text">
+          <div class=" arrow-wrapper">
+            <span class="arrow-text-spacer">Name</span>
+            <a
+              href="#"
+              (click)="sortType('customer_name_asc')"
+              *ngIf="showNames"
+            >
+              <div class="arrow-up"></div
+            ></a>
+            <a
+              href="#"
+              (click)="sortType('customer_name_dec')"
+              *ngIf="!showNames"
+            >
+              <div class="arrow-down"></div
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper text-2">
+        <div class="text">Address</div>
+        <div class="text">Status</div>
+      </div>
+      <div class="wrapper text-2">
+        <div class="text">Payment Type</div>
+        <div class="text">First Contact</div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="table-row"
+    *ngFor="let data of customersData 
+        | customerFilter: searchTerm; let i = index;"
+    (click)="showCustomerInfo(data)"
+  >
+    <div class="wrapper text-4">
+      <div class="wrapper text-2">
+        <div class="text">
+          {{data.customernumber}}
+        </div>
+        <div class="text">{{data.fullname}}</div>
+      </div>
+      <div class="wrapper text-2">
+        <div class="text">{{data.theMainAddress}}</div>
+        <div class="text">{{data.theStatus}}</div>
+      </div>
+      <div class="wrapper text-2">
+        <div class="text">{{data.paymentType}}</div>
+        <div class="text">{{data.firstcontact | date: 'dd/MM/yyyy'}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="showSingleCustomer">
+  <div class="show-wrapper">
+    <div>
+      <h3>{{selectedFullName}}</h3>
+    </div>
+
+    <div>ADDRESS: {{selectedMainAddress}}</div>
+    <div>NAME: {{selectedSiteName}}</div>
+    <div>PHONE NUMBER: {{selectedPhoneNumber}}</div>
+    <div>UNITS: {{selectedUnitList}}</div>
+    <p></p>
+    <app-button (click)="closeShow()" [label]="label"></app-button>
+  </div>
+</div>
