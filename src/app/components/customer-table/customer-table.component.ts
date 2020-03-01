@@ -9,6 +9,7 @@ import { HttpGetService } from '../../services/http-get.service';
 export class CustomerTableComponent implements OnInit {
   constructor(private CustomerData$: HttpGetService) {}
   public customersData: any;
+  public error: string;
   public selectedCustomerData: any = [];
   public selectedFullName: string;
   public selectedMainAddress: string;
@@ -24,9 +25,15 @@ export class CustomerTableComponent implements OnInit {
   placeholder = 'Search by Name';
 
   ngOnInit() {
-    this.CustomerData$.getContent().subscribe((res: any) => {
-      this.customersData = res.customers.data;
-    });
+    this.CustomerData$.getContent().subscribe(
+      res => {
+        this.customersData = res;
+      },
+      error => {
+        console.log(error);
+        this.error = error;
+      }
+    );
   }
   showCustomerInfo(selectedData) {
     this.showSingleCustomer = true;

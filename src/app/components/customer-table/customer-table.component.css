@@ -130,3 +130,7 @@
 .arrow-text-spacer {
   margin-right: 1em;
 }
+.error {
+  background-color: red;
+  color: white;
+}
